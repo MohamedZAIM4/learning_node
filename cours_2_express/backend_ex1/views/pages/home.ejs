@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test EJS</title>
+    <link rel="stylesheet" href="../pages/css/main.css">
+</head>
+<body>
+    <p>Le serveur Express avec EJS</p>
+    <h1>Bonjour 
+        <% if(typeof nickname!=='undefined' &&  typeof sex!=='undefined'){ %>
+            <%= sex==="H" ? `Mr ${nickname}` : `Mme ${nickname}` %>
+        <% } else if(typeof nickname !== 'undefined' && typeof sex=='undefined'){ %>
+          <%= nickname %>
+
+        <%} else if (typeof nickname == 'undefined' && typeof sex!=='undefined'){%>
+            <%= sex==="H" ? 'bel inconnu' : 'belle inconnue'%>
+        <%} else {%>
+            bel(e) inconnu(e)
+        <%}%>
+        
+    </h1>
+
+</body>
+</html>
