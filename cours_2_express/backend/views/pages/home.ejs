@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test EJS</title>
+    <link rel="stylesheet" href="../pages/css/main.css">
+</head>
+<body>
+    <p>Le serveur Express avec EJS</p>
+    <h1>Bonjour 
+        <% if(typeof user!=='undefined'){ %>
+            <%= user%>
+        <% } else{ %>
+          Bel inconnu
+        <%}%>
+    </h1>
+
+</body>
+</html>
