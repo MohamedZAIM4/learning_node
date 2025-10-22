@@ -7,7 +7,7 @@ const app = express(); // Instanciation d'une application express
 const path= require("path");
 
 
-// Chargement des fichiers statiques : Tjrs en 1er
+// Chargement des fichiers statiques : Tjrs en 1er middleware
 app.use(express.static(path.join(__dirname,'public')));
 
 // Set the engine
@@ -18,15 +18,14 @@ app.set('views',path.join(__dirname,'views'))
 //importation de 'express-ejs-layouts'
 const expressLayouts=require('express-ejs-layouts');
 
-//ajout du middleware
+//ajout du 2 eme middleware
 app.use(expressLayouts)
 
 // Définition du Layout par défaut :
-app.set('layout', '../views/layouts/layout');
+app.set('layout', '../views/layouts/layouts');
 
 
-
-
+//ajout du 3 eme middleware
 app.use((req,res,next)=> {
     const now=new Date().toDateString();
     console.log(`${now} : une requête ${req.method} est arrivée !`);
