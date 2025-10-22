@@ -27,22 +27,24 @@ app.use((req,res,next)=>{
     next();
 })
 
-app.get("/",(req,res)=>{
-    res.render('pages/index', { title: 'Accueil' })
-})
 
-// Route déclenchée uniquement pour une méthode GET sur l'URL "/about" 
-app.get("/about",(req,res)=>{
-    res.render('pages/about', { title: 'À propos' });
-})
+
+// ========== ROUTERS =========
+
+const homeRouter=require('./routes/homeRouter')
+app.use('/',homeRouter); // Note that we use USE METHOD Not a specified method 
+
+const aboutRouter=require('./routes/aboutRouter')
+app.use('/about',aboutRouter)
 
 // Route déclenchée uniquement pour toute requête non matchée précédement
 // Attention : L'ORDRE DE Déclaration est Important
 // The new version : * don't work you need to add splat
-app.get('/*splat',(req,res)=>{
-    // res.send('<p>... Je ne sais pas quoi dire... CHYATA </p>')
-    res.redirect('/')
-})
+
+// app.get('/*splat',(req,res)=>{
+//     // res.send('<p>... Je ne sais pas quoi dire... CHYATA </p>')
+//     res.redirect('/')
+// })
 
 const port=process.env.PORT || 3000;
 app.listen(port,()=>{
