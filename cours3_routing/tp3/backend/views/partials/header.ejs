@@ -1,0 +1,20 @@
+<% nick = typeof nick !== 'undefined' ? nick : undefined %>
+<header>
+    <div id="mark">Mark III</div>
+    <div id="main-title">Jarvis Interface</div>
+    <div id="log-button">
+        <% if(!nick) {%>
+        <a href="/login">
+            <button class="btn btn-primary">
+                LOGIN
+            </button>
+        </a>
+        <% } else { %>
+                <a href="/login">
+                    <button class="btn btn-secondary">
+                        LOGOUT
+                    </button>
+                </a>
+        <% } %>
+    </div>
+</header>

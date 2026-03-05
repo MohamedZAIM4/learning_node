@@ -1,0 +1,7 @@
+<div id="jokes">
+    <% jokes.forEach((elem)=>{ %>
+        <a class="joke" href="/jokes/joke/<%= elem.id %>">
+            <%= elem.joke %>
+        </a>
+        <% })%>
+</div>

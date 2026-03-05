@@ -1,0 +1,9 @@
+<div id="scrollable">
+    <div id="movies-content">
+        <% movies.forEach((movie) => { %>
+        <div>
+            <%- include('../partials/movie', { movie }) %>
+        </div>
+        <% })%>
+    </div>
+</div>

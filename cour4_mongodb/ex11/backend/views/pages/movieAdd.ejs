@@ -1,0 +1,24 @@
+<h2>Ajouter un nouveau film</h2>
+
+<!-- Le formulaire va envoyer une requête POST à l'URL /movies/add -->
+<!-- C'est très important de préciser 'method="POST"' et 'action="/movies/add"' -->
+<form method="POST" action="/movies/add">
+      <div>
+            <label for="title">Titre du film :</label>
+            <!-- L'attribut 'name' est ce qui va être envoyé au serveur, on le récupérera via req.body.title -->
+            <input type="text" id="title" name="title" required>
+      </div>
+      <div style="margin-top: 10px;">
+            <label for="synopsis">Synopsis :</label>
+            <!-- On le récupérera via req.body.synopsis -->
+            <textarea id="synopsis" name="synopsis" rows="4" cols="50"></textarea>
+      </div>
+      <div style="margin-top: 15px;">
+            <!-- Le bouton submit déclenche l'envoi du formulaire au serveur -->
+            <button type="submit"
+                  style="padding: 10px 15px; background-color: #008CBA; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                  Enregistrer le film
+            </button>
+            <a href="/movies" style="margin-left: 10px; text-decoration: none; color: #555;">Annuler</a>
+      </div>
+</form>

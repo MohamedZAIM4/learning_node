@@ -1,0 +1,59 @@
+<div class="scrollable">
+    <form action="/movies/update/<%= movie.id %>" method="post" name="addMovieForm" enctype="multipart/form-data" style="width: 80%">
+        <div style="width: 100% ; text-align: right">
+            <%- include('../partials/close-button') %>
+        </div>
+        <div class="mb-3">
+            <label for="title" class="form-label">Titre du film</label>
+            <input id="title" name="title" class="form-control" autofocus
+                   value="<%= movie.title %>"
+            />
+            <!--        <div id="titleHelp" class="form-text">We'll never share your email with anyone else.</div>-->
+        </div>
+        <div class="mb-3">
+            <label for="synopsis" class="col-form-label col-auto">Synopsis</label>
+            <textarea id="synopsis" name="synopsis" class="form-control" rows="8"><%= movie.synopsis %></textarea>
+            <!--        <div id="titleHelp" class="form-text">We'll never share your email with anyone else.</div>-->
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label" style="display: flex ; flex-direction: column ; justify-content: center">
+                <div style="margin-bottom: 10px">Affiche</div>
+                <div class="card" id="preview">
+                    <img id="preview-image" src="<%= movie.image %>"/>
+                </div>
+            </label>
+            <input class="form-control" type="file" id="image" name="image" accept="image/png, image/jpeg">
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary" id="goButton">Save</button>
+            <a href="/movies" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+        const submitButton = document.getElementById("submit-button") ;
+        const preview = document.getElementById("preview-image") ;
+
+        const reader = new FileReader() ;
+        reader.onload = (e)=>{
+            preview.src = reader.result ;
+        }
+
+        const fileInput = document.getElementById("image") ;
+        fileInput.addEventListener('change', ()=>{
+            let file = fileInput.files[0] ;
+
+            if(file && file.type.split('/')[0] === "image"){
+                reader.readAsDataURL(fileInput.files[0])
+                submitButton.disabled = false ;
+            }else{
+                submitButton.disabled = true ;
+                preview.src = "" ;
+            }
+
+        })
+
+    })
+</script>

@@ -1,0 +1,50 @@
+<div id="scrollable">
+    <form action="/movies/create" method="post" name="addMovieForm" id="addMovieForm" enctype="multipart/form-data" class="row">
+        <div class="mb-3">
+            <label for="title" class="col-form-label col-auto">Titre du film</label>
+        </div>
+        <div class="mb-3">
+            <input id="title" name="title" class="form-control" autofocus/>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label" style="display: flex ; flex-direction: column ; justify-content: center">
+                <div style="margin-bottom: 10px">Affiche</div>
+                <div class="card" id="preview">
+                    <img id="preview-image" src=""/>
+                </div>
+            </label>
+            <input class="form-control" type="file" id="image" name="image" accept="image/png, image/jpeg">
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary">Save</button>
+            <a class="btn btn-secondary" href="/movies">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+        const submitButton = document.getElementById("submit-button") ;
+        const preview = document.getElementById("preview-image") ;
+
+        const reader = new FileReader() ;
+        reader.onload = (e)=>{
+            preview.src = reader.result ;
+        }
+
+        const fileInput = document.getElementById("image") ;
+        fileInput.addEventListener('change', ()=>{
+            let file = fileInput.files[0] ;
+
+            if(file && file.type.split('/')[0] === "image"){
+                reader.readAsDataURL(fileInput.files[0])
+                submitButton.disabled = false ;
+            }else{
+                submitButton.disabled = true ;
+                preview.src = "" ;
+            }
+
+        })
+
+    })
+</script>

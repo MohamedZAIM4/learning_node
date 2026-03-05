@@ -1,0 +1,14 @@
+<div class="card movie">
+    <div class="movie-card-image">
+    <% if(movie.image) { %>
+        <img class="card-img-top" src="<%= movie.image %>">
+    <% } else { %>
+        <img src="/images/cinema5_02.jpg" class="card-img-top" alt="Fond vecteur créé par kenshinstock - fr.freepik.com">
+    <% } %>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title"><%= movie.title %></h5>
+        <p class="card-text"><%= movie.description%></p>
+        <a href="/movies/<%= movie._id %>" class="btn btn-dark btn-sm">More</a>
+    </div>
+</div>

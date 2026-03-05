@@ -1,0 +1,24 @@
+<div class="scrollable">
+    <div class="card movie" style="width: 80%">
+        <div class="card-body" style="display: flex ; justify-content: space-between ; align-items: baseline">
+            <h5 class="card-title"><%= movie.title %></h5>
+            <%- include('../partials/close-button')%>
+        </div>
+        <div class="movie-infos-image">
+        <% if(movie.image) { %>
+            <img class="card-img-top" src="<%= movie.image %>">
+        <% } else { %>
+            <img src="/images/cinema5_02.jpg" class="card-img-top" alt="Fond vecteur créé par kenshinstock - fr.freepik.com">
+        <% } %>
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                <%= movie.synopsis%>
+            </p>
+            <div style="display: flex ; justify-content: space-between">
+                <a href="/movies/update/<%= movie._id %>" class="btn btn-dark btn-sm">Edit</a>
+                <a href="/movies/delete/<%= movie._id %>" class="btn btn-danger btn-sm">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>

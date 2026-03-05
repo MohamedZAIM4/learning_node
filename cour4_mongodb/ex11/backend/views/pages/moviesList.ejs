@@ -1,0 +1,15 @@
+<div id="cocktails">
+    <!-- Lien pour aller vers la page d'ajout d'un film -->
+    <div style="margin-bottom: 20px;">
+        <a href="/movies/add"
+            style="padding: 10px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">Ajouter
+            un film</a>
+    </div>
+
+    <!-- On ajoute 'max-height' et 'overflow-y: auto' pour permettre le scroll de la liste -->
+    <ul style="max-height: 400px; overflow-y: auto; padding-right: 15px; margin: 0; padding-left: 0;">
+        <% movies.forEach((movie)=> { %>
+            <%- include('../partials/movie', { movie }) %>
+                <% })%>
+    </ul>
+</div>

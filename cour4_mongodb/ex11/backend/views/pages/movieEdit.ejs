@@ -1,0 +1,22 @@
+<h2>Modifier le film</h2>
+
+<!-- L'action du formulaire pointe vers l'URL de modification avec l'ID du film dynamique -->
+<form method="POST" action="/movies/edit/<%= movie._id %>">
+      <div>
+            <label for="title">Titre du film :</label>
+            <!-- On pré-remplit l'input 'value' avec l'ancien titre du film (movie.title) -->
+            <input type="text" id="title" name="title" value="<%= movie.title %>" required>
+      </div>
+      <div style="margin-top: 10px;">
+            <label for="synopsis">Synopsis :</label>
+            <!-- On pré-remplit le textarea avec l'ancien synopsis (attention, textarea n'a pas d'attribut 'value', on met le contenu entre les balises) -->
+            <textarea id="synopsis" name="synopsis" rows="4" cols="50"><%= movie.synopsis %></textarea>
+      </div>
+      <div style="margin-top: 15px;">
+            <button type="submit"
+                  style="padding: 10px 15px; background-color: #f0ad4e; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                  Mettre à jour
+            </button>
+            <a href="/movies" style="margin-left: 10px; text-decoration: none; color: #555;">Annuler</a>
+      </div>
+</form>

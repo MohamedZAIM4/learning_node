@@ -1,0 +1,26 @@
+<li style="margin-bottom: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; list-style-type: none;">
+    <strong>
+        <%= movie.title %>
+    </strong>
+    <!-- On affiche le synopsis s'il existe -->
+    <% if (movie.synopsis) { %>
+        <p style="margin: 5px 0; color: #555;">
+            <%= movie.synopsis %>
+        </p>
+        <% } %>
+
+            <!-- Liens d'action (Modifier & Supprimer) -->
+            <div style="margin-top: 10px; display: flex; gap: 10px;">
+                <!-- Bouton Modifier (lien simple vers la route GET) -->
+                <a href="/movies/edit/<%= movie._id %>"
+                    style="display: inline-block; padding: 5px 10px; background-color: #f0ad4e; color: white; text-decoration: none; border-radius: 3px; font-size: 0.9em;">Modifier</a>
+
+                <!-- Bouton Supprimer (doit être un formulaire POST pour la sécurité) -->
+                <!-- Pourquoi POST et pas GET ? Les actions qui modifient la base (comme supprimer) ne doivent jamais se faire via une simple URL (GET) qu'on pourrait recharger par erreur ! -->
+                <form method="POST" action="/movies/delete/<%= movie._id %>"
+                    onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce film ?');" style="display: inline;">
+                    <button type="submit"
+                        style="padding: 5px 10px; background-color: #d9534f; color: white; border: none; border-radius: 3px; font-size: 0.9em; cursor: pointer;">Supprimer</button>
+                </form>
+            </div>
+</li>

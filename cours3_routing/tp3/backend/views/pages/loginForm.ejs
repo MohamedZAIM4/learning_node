@@ -1,0 +1,18 @@
+<%
+error = typeof error !== 'undefined' ? error : undefined ;
+username = typeof username !== 'undefined' ? username : undefined ;
+%>
+
+<form method="post" action="/login" class="magic-card" id="login-form">
+    <legend style="text-align: center">Please Login</legend>
+    <div class="form-group">
+
+        <input type="text" name="username" placeholder="username" value="<%= username %>">
+        <% if(error && error.username) { %> <div class="error"><%= error.username %></div> <% }%>
+
+        <input type="password" name="password" placeholder="password">
+        <% if(error && error.password) { %> <div class="error"><%= error.password %></div> <% }%>
+    </div>
+    <button type="submit" class="btn btn-primary">LOGIN</button>
+    <% if(error && error.bad) { %> <div class="error" style="text-align: center"><%= error.bad %></div> <% }%>
+</form>
