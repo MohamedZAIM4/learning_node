@@ -63,29 +63,27 @@ module.exports.login = (req, res) => {
     User.findOne({ login: req.body.login })
         .then(user => {
 
-            // Étape 2 : Si aucun utilisateur trouvé → erreur
+            // Étape 2 : Si aucun utilisateur trouvé → ré-afficher le formulaire avec erreur
             if (!user) {
-                return res.status(401).send('Utilisateur non trouvé');
+                return res.render('pages/login', { error: 'Utilisateur non trouvé' });
             }
 
             // Étape 3 : Comparer le password du formulaire avec le hash en DB
-            // bcrypt.compare prend le password en clair et le hash, et retourne true/false
             bcrypt.compare(req.body.password, user.password)
                 .then(ok => {
                     if (ok) {
                         // Étape 4 : Passwords correspondent → créer un JWT
                         authorization.createToken(res, user._id);
-                        // Rediriger vers la liste des films (route protégée)
                         return res.redirect('/movies');
                     } else {
-                        // Passwords ne correspondent pas
-                        return res.status(401).send('Mot de passe incorrect');
+                        // Passwords ne correspondent pas → ré-afficher avec erreur
+                        return res.render('pages/login', { error: 'Mot de passe incorrect' });
                     }
                 });
         })
         .catch(error => {
             console.error('Erreur login:', error);
-            return res.status(500).send('Erreur serveur');
+            return res.render('pages/login', { error: 'Erreur serveur' });
         });
 };
 
