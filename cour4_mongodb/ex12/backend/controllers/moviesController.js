@@ -46,7 +46,7 @@ const uploader = multer({
 
 module.exports.list = (req, res, next)=>{
     console.log('ici')
-    Movie.find().sort('title : 1')
+    Movie.find().sort('title')
         .then(movies => {
             console.log(movies);
             res.render('pages/moviesList', { movies }) ;
