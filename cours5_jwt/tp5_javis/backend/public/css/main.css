@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Unica+One&display=swap');
+
+html, body{
+    height: 100%;
+}
+
+body{
+    background: url("../images/jarvis.jpg");
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    flex-direction: column;
+
+    color: white;
+    font-family: 'Unica One', cursive;
+}
+
+header, footer{
+    height: 100px;
+    text-align: center;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main-title{
+    color: white;
+    font-size: 3em;
+    letter-spacing: 0.3em;
+}
+
+#mark, #log-button{
+    width: 80px;
+    margin: 0 10px;
+}
+
+#main-content{
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#login-form, #error{
+    width: 300px;
+}
+
+#login-form{
+    border-radius: 3px;
+    background: white;
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    color: black;
+}
+#login-form input, #login-form button{
+    width: 100%;
+    margin-top: 20px ;
+}
+
+.error{
+    color: orangered;
+}
+
+#welcome h1 {
+    font-size: 4em !important;
+    color: limegreen;
+}

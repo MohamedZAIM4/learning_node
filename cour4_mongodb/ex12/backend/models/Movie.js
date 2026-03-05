@@ -6,7 +6,9 @@ const movieSchema = mongoose.Schema({
 
     title: { type: String, required: true },
     synopsis: { type: String, default: "No synopsis available yet !" },
-    image: { type: String }
+    image: { type: String },
+    // Référence vers le User propriétaire de ce film
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
 }) ;
 
 // Si on ne précise pas le nom de la collection, un nom basé sur le nom du Schéma

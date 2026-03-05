@@ -16,26 +16,18 @@ app.set('layout', '../views/layouts/layout') ; // définit le layout par défaut
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// cookie-parser : permet de lire/écrire les cookies (nécessaire pour JWT)
-const cookieParser = require('cookie-parser');
-app.use(cookieParser());
+// cookie-parser
+const cookieParser = require('cookie-parser') ; // npm install cookie-parser
+app.use(cookieParser())
 
-// npm install mongoose
 // script d'initialisation de mongoose
 require("./controllers/mongoose_init")
 
-// Middleware global : vérifie si l'utilisateur est connecté (pour la navbar)
-const authorization = require('./controllers/authorization');
-app.use(authorization.checkAuth);
-
 // --- ROUTES ---
-const homeRouter = require("./routes/homeRouter");
-app.use("/", homeRouter);
+const router = require('./routes/mainRouter');
+app.use('/', router);
 
-const userRouter = require("./routes/userRouter");
-app.use("/user", userRouter);
-
-const  moviesRouter = require("./routes/moviesRouter");
-app.use("/movies", moviesRouter);
+const usersRouter = require('./routes/userRouter');
+app.use('/user', usersRouter);
 
 module.exports = app;

@@ -2,7 +2,13 @@
     <div id="main-title"><a href="/">BEST OLD MOVIES</a></div>
     <div class="btn-group">
         <a href="/" class="btn btn-dark" aria-current="page">Home</a>
-        <a href="/movies" class="btn btn-dark" aria-current="page">List</a>
-        <a href="/movies/create" class="btn btn-dark">Create</a>
+        <% if (isLoggedIn) { %>
+            <a href="/movies" class="btn btn-dark">Mes Films</a>
+            <a href="/movies/create" class="btn btn-dark">Ajouter</a>
+            <a href="/user/logout" class="btn btn-danger">Déconnexion</a>
+            <% } else { %>
+                <a href="/user/login" class="btn btn-success">Connexion</a>
+                <a href="/user/register" class="btn btn-primary">S'inscrire</a>
+                <% } %>
     </div>
 </header>

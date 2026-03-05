@@ -1,0 +1,16 @@
+<% user = typeof user!== 'undefined' ? user : undefined %>
+
+<header style="padding: 0 10px">
+    <h1><a href="/">Sample Users</a></h1>
+    <div style="flex: 1"></div>
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <% if(user){ %>
+            <a class="btn btn-primary" href="/admin">Admin</a>
+            <a class="btn btn-primary" href="/user/create">Create</a>
+            <a class="btn btn-primary" href="/user/logout">Logout</a>
+        <% }else{ %>
+            <a class="btn btn-primary" href="/user/create">Create</a>
+            <a class="btn btn-primary" href="/user/login">Login</a>
+        <% } %>
+    </div>
+</header>

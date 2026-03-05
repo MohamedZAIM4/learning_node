@@ -45,10 +45,9 @@ const uploader = multer({
 // --- ROUTES ---
 
 module.exports.list = (req, res, next)=>{
-    console.log('ici')
-    Movie.find().sort('title')
+    // On filtre par userId : chaque user ne voit que SES films
+    Movie.find({ userId: req.userId }).sort('title')
         .then(movies => {
-            console.log(movies);
             res.render('pages/moviesList', { movies }) ;
         })
         .catch(error => res.status(400).send(error))
@@ -80,6 +79,7 @@ module.exports.create = (req, res, next)=>{
         // console.log(req.file)
         const movie = new Movie({
             ...req.body,
+            userId: req.userId  // On associe le film à l'utilisateur connecté
         })
         if (req.file){
             movie.image =  UPLOAD_DIR + req.file.filename ;
@@ -98,20 +98,25 @@ module.exports.create = (req, res, next)=>{
 }
 
 module.exports.select = (req, res, next)=> {
-
         const id = req.params.id;
         Movie.findById(id)
             .then((movie) => {
+                // Vérifier que le film appartient à l'utilisateur connecté
+                if (!movie || movie.userId.toString() !== req.userId) {
+                    return res.status(403).send('Accès interdit');
+                }
                 res.render('./pages/movieInfos', {movie})
             })
             .catch(error => res.status(400).send(error))
-
 }
 
 module.exports.updateForm = (req, res, next)=> {
     const id = req.params.id ;
     Movie.findById(id)
         .then((movie)=>{
+            if (!movie || movie.userId.toString() !== req.userId) {
+                return res.status(403).send('Accès interdit');
+            }
             res.render('./pages/movieUpdateForm', { movie })
         })
         .catch(error => res.status(400).send(error))
@@ -155,12 +160,15 @@ module.exports.update = (req, res, next)=> {
     });
 }
 
-module.exports.delete = async (req, res, next)=> { // async + await : une autre manière de gérer les Promise
-    const id = req.params.id ;
+module.exports.delete = async (req, res, next)=> {
     try{
         const id = req.params.id ;
-        await Movie.findByIdAndDelete(id) ; // bloquant et génère une exception en cas de pb
+        // Vérifier que le film appartient à l'utilisateur avant de supprimer
+        const movie = await Movie.findById(id);
+        if (!movie || movie.userId.toString() !== req.userId) {
+            return res.status(403).send('Accès interdit');
+        }
+        await Movie.findByIdAndDelete(id) ;
         res.redirect('/movies') ;
     } catch (error) { res.status(400).send(error) }
-
 }

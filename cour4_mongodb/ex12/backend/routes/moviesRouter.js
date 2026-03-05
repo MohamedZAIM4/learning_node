@@ -2,17 +2,21 @@ const express = require('express');
 const router = express.Router();
 
 const moviesController = require('../controllers/moviesController');
+const authorization = require('../controllers/authorization');
 
-router.get('/', moviesController.list);
+// Toutes les routes sont protégées par authorization.authorize
+// → l'utilisateur DOIT être connecté (avoir un JWT valide) pour accéder
 
-router.get('/create', moviesController.createForm)
-router.post('/create', moviesController.create)
+router.get('/', authorization.authorize, moviesController.list);
 
-router.get('/:id', moviesController.select)
+router.get('/create', authorization.authorize, moviesController.createForm)
+router.post('/create', authorization.authorize, moviesController.create)
 
-router.get('/update/:id', moviesController.updateForm)
-router.post('/update/:id', moviesController.update)
+router.get('/:id', authorization.authorize, moviesController.select)
 
-router.get('/delete/:id', moviesController.delete);
+router.get('/update/:id', authorization.authorize, moviesController.updateForm)
+router.post('/update/:id', authorization.authorize, moviesController.update)
+
+router.get('/delete/:id', authorization.authorize, moviesController.delete);
 
 module.exports = router;

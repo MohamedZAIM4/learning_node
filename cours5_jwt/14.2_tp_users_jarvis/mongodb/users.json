@@ -1,0 +1,14 @@
+[
+  {
+    "login": "tony",
+    "password": "$2b$10$C81TfEDyVCYyQi51.c8cledPVa.sI.lQF5wToz/c9sUaOZGYBkxCy",
+    "__v": 0,
+    "address": "10880 Malibu Point, Florida"
+  },
+  {
+    "login": "thor",
+    "password": "$2b$10$31YgYcG24FG3YNzuVV3UFeN0CyVASfFD3giHRx4oOrmhJLK7L/BMq",
+    "__v": 0,
+    "address": "Asgard"
+  }
+]

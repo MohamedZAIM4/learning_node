@@ -1,0 +1,15 @@
+<div class="container mt-4">
+      <h2>Inscription</h2>
+      <form action="/user/register" method="POST" class="mt-3">
+            <div class="mb-3">
+                  <label for="login" class="form-label">Login</label>
+                  <input type="text" class="form-control" id="login" name="login" required>
+            </div>
+            <div class="mb-3">
+                  <label for="password" class="form-label">Mot de passe</label>
+                  <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">S'inscrire</button>
+            <a href="/user/login" class="btn btn-link">Déjà inscrit ? Se connecter</a>
+      </form>
+</div>
