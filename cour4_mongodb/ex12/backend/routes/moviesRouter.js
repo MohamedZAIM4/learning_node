@@ -17,6 +17,8 @@ router.get('/:id', authorization.authorize, moviesController.select)
 router.get('/update/:id', authorization.authorize, moviesController.updateForm)
 router.post('/update/:id', authorization.authorize, moviesController.update)
 
-router.get('/delete/:id', authorization.authorize, moviesController.delete);
+// Supprimer un film → UNIQUEMENT les admins !
+// La chaîne : authorize (vérifie JWT) → authorizeRole('admin') (vérifie le rôle) → delete
+router.get('/delete/:id', authorization.authorize, authorization.authorizeRole('admin'), moviesController.delete);
 
 module.exports = router;

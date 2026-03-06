@@ -72,8 +72,8 @@ module.exports.login = (req, res) => {
             bcrypt.compare(req.body.password, user.password)
                 .then(ok => {
                     if (ok) {
-                        // Étape 4 : Passwords correspondent → créer un JWT
-                        authorization.createToken(res, user._id);
+                        // Étape 4 : Passwords correspondent → créer un JWT avec le rôle
+                        authorization.createToken(res, user._id, user.role);
                         return res.redirect('/movies');
                     } else {
                         // Passwords ne correspondent pas → ré-afficher avec erreur

@@ -5,10 +5,13 @@
         <% if (isLoggedIn) { %>
             <a href="/movies" class="btn btn-dark">Mes Films</a>
             <a href="/movies/create" class="btn btn-dark">Ajouter</a>
-            <a href="/user/logout" class="btn btn-danger">Déconnexion</a>
-            <% } else { %>
-                <a href="/user/login" class="btn btn-success">Connexion</a>
-                <a href="/user/register" class="btn btn-primary">S'inscrire</a>
+            <% if (userRole==='admin' ) { %>
+                <span class="btn btn-warning disabled">Admin</span>
                 <% } %>
+                    <a href="/user/logout" class="btn btn-danger">Déconnexion</a>
+                    <% } else { %>
+                        <a href="/user/login" class="btn btn-success">Connexion</a>
+                        <a href="/user/register" class="btn btn-primary">S'inscrire</a>
+                        <% } %>
     </div>
 </header>

@@ -11,18 +11,16 @@ const EXPIRATION = '1h';
 
 // ============================================
 // createToken : crée un JWT et le stocke dans un cookie
+// On met userId ET role dans le payload du token
 // ============================================
-module.exports.createToken = (res, userId) => {
+module.exports.createToken = (res, userId, role) => {
 
-    // 1. Création du token avec le userId dans le payload
     const token = jwt.sign(
-        { userId },           // payload : les données qu'on veut stocker dans le token
-        SECRET_KEY,           // la clé secrète pour signer le token
-        { expiresIn: EXPIRATION }  // le token expire après 1h
+        { userId, role },     // payload : userId + role voyagent dans le token
+        SECRET_KEY,
+        { expiresIn: EXPIRATION }
     );
 
-    // 2. On stocke le token dans un cookie httpOnly
-    //    httpOnly = le cookie n'est PAS accessible par le JavaScript côté client (sécurité)
     res.cookie(COOKIE_NAME, token, { httpOnly: true });
 };
 
@@ -43,21 +41,29 @@ module.exports.authorize = (req, res, next) => {
 
     // 3. Vérification du token
     try {
-        // jwt.verify décode le token et vérifie la signature + l'expiration
         const payload = jwt.verify(token, SECRET_KEY);
-
-        // On place le userId du payload dans req pour le rendre accessible
-        // aux handlers/middlewares suivants
         req.userId = payload.userId;
-
-        // Tout est OK → on passe au handler suivant
+        req.userRole = payload.role;  // On récupère aussi le rôle !
         next();
-
     } catch {
-        // Le token n'est pas/plus valide (expiré, modifié, etc.)
-        res.clearCookie(COOKIE_NAME);  // On efface le cookie
+        res.clearCookie(COOKIE_NAME);
         return res.redirect('/user/login');
     }
+};
+
+// ============================================
+// authorizeRole : middleware qui vérifie le RÔLE de l'utilisateur
+// Usage : authorizeRole('admin') ou authorizeRole('admin', 'moderator')
+// DOIT être placé APRÈS authorize dans la chaîne de middlewares
+// ============================================
+module.exports.authorizeRole = (...allowedRoles) => {
+    // Retourne un middleware qui vérifie si le rôle est autorisé
+    return (req, res, next) => {
+        if (!allowedRoles.includes(req.userRole)) {
+            return res.status(403).send('Accès interdit : rôle insuffisant');
+        }
+        next();
+    };
 };
 
 // ============================================
@@ -71,12 +77,16 @@ module.exports.checkAuth = (req, res, next) => {
         try {
             const payload = jwt.verify(token, SECRET_KEY);
             res.locals.isLoggedIn = true;
+            res.locals.userRole = payload.role;  // Accessible dans les vues EJS
             req.userId = payload.userId;
+            req.userRole = payload.role;
         } catch {
             res.locals.isLoggedIn = false;
+            res.locals.userRole = null;
         }
     } else {
         res.locals.isLoggedIn = false;
+        res.locals.userRole = null;
     }
     next();
 };
